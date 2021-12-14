@@ -42,20 +42,40 @@ const Slider = (props) => {
     }
   }
 
+  const moveDot = (index) => {
+    setSlideAnim({index, inProgress: false})
+  }
+
   return (
     <div className="container-slider">
       {dataSlider.map((obj, index) => {
         return (
           <div
             key={obj.id}
-            className={slideAnim.index === index + 1 ? "slide active-anim" : "slide"}
+            className={
+              slideAnim.index === index + 1 ? "slide active-anim" : "slide"
+            }
           >
-            <img src={process.env.PUBLIC_URL + `/Imgs/img${index + 1}.jpg`} alt="slider"/>
+            <img
+              src={process.env.PUBLIC_URL + `/Imgs/img${index + 1}.jpg`}
+              alt="slider"
+            />
           </div>
-        )
+        );
       })}
       <BtnSlider moveSlide={nextSlide} direction={"next"} />
       <BtnSlider moveSlide={previousSlide} direction={"previous"} />
+
+      <div className="container-dots">
+        {Array.from({length: 5}).map((item, index) => {
+          return (
+            <button
+              key={index} className={slideAnim.index === index + 1 ? "dot active" : "dot"}
+              onClick={() => moveDot(index + 1)}
+            ></button>
+          );
+        })}
+      </div>
     </div>
   );
 };
