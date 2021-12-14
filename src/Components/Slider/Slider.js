@@ -10,24 +10,35 @@ const Slider = (props) => {
   const [slideAnim, setSlideAnim] = useState({
     index: 1,
     inProgress: false
-
   })
 
   const nextSlide = () => {
-    if (slideAnim.index < dataSlider.length) {
+    if (slideAnim.index < dataSlider.length && !slideAnim.inProgress) {
       setSlideAnim({index: slideAnim.index + 1, inProgress: true})
+      setTimeout(() => {
+        setSlideAnim({index: slideAnim.index + 1, inProgress: false})
+      }, 400);
     }
-    else {
+    else if (slideAnim.index === dataSlider.length && !slideAnim.inProgress) {
       setSlideAnim({index: 1, inProgress: true})
+      setTimeout(() => {
+        setSlideAnim({ index: 1, inProgress: false });
+      }, 400);
     }
   }
 
   const previousSlide = () => {
-    if (slideAnim.index > 1) {
+    if (slideAnim.index > 1 && !slideAnim.inProgress) {
       setSlideAnim({ index: slideAnim.index - 1, inProgress: true });
+      setTimeout(() => {
+        setSlideAnim({ index: slideAnim.index - 1, inProgress: false });
+      }, 400);
     }
-    else {
+    else if (slideAnim.index === 1 && !slideAnim.inProgress){
       setSlideAnim({ index: dataSlider.length, inProgress: true });
+      setTimeout(() => {
+        setSlideAnim({ index: dataSlider.length, inProgress: false });
+      }, 400);
     }
   }
 
